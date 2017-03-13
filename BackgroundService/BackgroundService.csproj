@@ -124,12 +124,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheManager.cs" />
+    <Compile Include="Models\StateInfo.cs" />
     <Compile Include="Processes\AddFamilyMember.cs" />
     <Compile Include="Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepTracker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
