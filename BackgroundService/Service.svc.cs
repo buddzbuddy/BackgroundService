@@ -14,6 +14,10 @@ namespace BackgroundService
     {
         public string GetData(int value)
         {
+            var val = CacheManager.Cache["value"];
+            if (val == null)
+                CacheManager.CacheData("value", value);
+
             return string.Format("You entered: {0}", value);
         }
 
