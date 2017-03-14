@@ -10,15 +10,23 @@ namespace BackgroundService
 {
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "Service1" в коде, SVC-файле и файле конфигурации.
     // ПРИМЕЧАНИЕ. Чтобы запустить клиент проверки WCF для тестирования службы, выберите элементы Service1.svc или Service1.svc.cs в обозревателе решений и начните отладку.
-    public class Service1 : IService
+    public class Service : IService
     {
         public string GetData(int value)
         {
+            var res = "";
             var val = CacheManager.Cache["value"];
             if (val == null)
+            {
                 CacheManager.CacheData("value", value);
+                res = string.Format("[Origin] You entered: {0}", value);
+            }
+            else
+            {
+                res = string.Format("[Cache] You entered: {0}", value);
+            }
 
-            return string.Format("You entered: {0}", value);
+            return res;
         }
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)

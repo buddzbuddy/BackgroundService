@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundService", "BackgroundService\BackgroundService.csproj", "{522D6068-9EF2-42E8-B698-21FBA49897B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{F84CF5A9-D9E0-4391-89B1-4F8C69937986}"
+	ProjectSection(ProjectDependencies) = postProject
+		{522D6068-9EF2-42E8-B698-21FBA49897B6} = {522D6068-9EF2-42E8-B698-21FBA49897B6}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{522D6068-9EF2-42E8-B698-21FBA49897B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{522D6068-9EF2-42E8-B698-21FBA49897B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{522D6068-9EF2-42E8-B698-21FBA49897B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F84CF5A9-D9E0-4391-89B1-4F8C69937986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F84CF5A9-D9E0-4391-89B1-4F8C69937986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F84CF5A9-D9E0-4391-89B1-4F8C69937986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F84CF5A9-D9E0-4391-89B1-4F8C69937986}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
