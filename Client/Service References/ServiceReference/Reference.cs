@@ -81,26 +81,14 @@ namespace Client.ServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetData", ReplyAction="http://tempuri.org/IService/GetDataResponse")]
         string GetData(int value);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetData", ReplyAction="http://tempuri.org/IService/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService/GetDataUsingDataContractResponse")]
         Client.ServiceReference.CompositeType GetDataUsingDataContract(Client.ServiceReference.CompositeType composite);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<Client.ServiceReference.CompositeType> GetDataUsingDataContractAsync(Client.ServiceReference.CompositeType composite);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/StartThreadProcess", ReplyAction="http://tempuri.org/IService/StartThreadProcessResponse")]
-        void StartThreadProcess(string name);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/StartThreadProcess", ReplyAction="http://tempuri.org/IService/StartThreadProcessResponse")]
-        System.Threading.Tasks.Task StartThreadProcessAsync(string name);
+        void StartThreadProcess(string name, int threadsCount);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetValue", ReplyAction="http://tempuri.org/IService/GetValueResponse")]
         string GetValue(string name);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetValue", ReplyAction="http://tempuri.org/IService/GetValueResponse")]
-        System.Threading.Tasks.Task<string> GetValueAsync(string name);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -134,32 +122,16 @@ namespace Client.ServiceReference {
             return base.Channel.GetData(value);
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
-        }
-        
         public Client.ServiceReference.CompositeType GetDataUsingDataContract(Client.ServiceReference.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<Client.ServiceReference.CompositeType> GetDataUsingDataContractAsync(Client.ServiceReference.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
-        }
-        
-        public void StartThreadProcess(string name) {
-            base.Channel.StartThreadProcess(name);
-        }
-        
-        public System.Threading.Tasks.Task StartThreadProcessAsync(string name) {
-            return base.Channel.StartThreadProcessAsync(name);
+        public void StartThreadProcess(string name, int threadsCount) {
+            base.Channel.StartThreadProcess(name, threadsCount);
         }
         
         public string GetValue(string name) {
             return base.Channel.GetValue(name);
-        }
-        
-        public System.Threading.Tasks.Task<string> GetValueAsync(string name) {
-            return base.Channel.GetValueAsync(name);
         }
     }
 }

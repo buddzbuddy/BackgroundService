@@ -29,7 +29,7 @@ namespace Client
             Console.WriteLine("press any keys to exit...");
             Console.ReadLine();
         }
-
+        static int Count = 50;
         static void StartCache()
         {
             using (ServiceClient client = new ServiceClient())
@@ -40,10 +40,10 @@ namespace Client
 
                 var name = Console.ReadLine();
 
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= Count; i++)
                 {
-                    client.StartThreadProcess(name + i);
-                    Thread.Sleep(1000);
+                    client.StartThreadProcess(name + i, 500);
+                    //Thread.Sleep(1000);
                     Console.WriteLine(name + i);
                 }
 
@@ -66,7 +66,7 @@ namespace Client
                 {
                     Console.WriteLine("please type the name to get cache value...");
                     var name = Console.ReadLine();
-                    for (int i = 1; i <= 5; i++)
+                    for (int i = 1; i <= Count; i++)
                     {
                         Console.WriteLine(name + i + ": " + client.GetValue(name + i));
                     }

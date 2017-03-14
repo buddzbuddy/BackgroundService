@@ -22,7 +22,7 @@ namespace BackgroundService
 
         // TODO: Добавьте здесь операции служб
         [OperationContract]
-        void StartThreadProcess(string name);
+        void StartThreadProcess(string name, int threadsCount);
 
         [OperationContract]
         string GetValue(string name);
