@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/BackgroundService/Service.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:2169/Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service3.xsd" MetadataType="Schema" ID="4d7e5187-519d-4ef6-b802-a3d05d5cd54f" SourceId="1" SourceUrl="http://localhost/BackgroundService/Service.svc?xsd=xsd2" />
-    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="868e1080-6a4a-4e59-a5cc-17be0ea23397" SourceId="1" SourceUrl="http://localhost/BackgroundService/Service.svc?wsdl" />
-    <MetadataFile FileName="Service31.xsd" MetadataType="Schema" ID="92eedc80-d6c5-4ed9-b4d6-01c1310453c5" SourceId="1" SourceUrl="http://localhost/BackgroundService/Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service32.xsd" MetadataType="Schema" ID="0cde8158-c621-40ab-8b9a-20dedd050c6d" SourceId="1" SourceUrl="http://localhost/BackgroundService/Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="7617d77d-56c9-4a9c-b356-49ac9f61c964" SourceId="1" SourceUrl="http://localhost/BackgroundService/Service.svc?disco" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="4048ed9c-b141-43f9-884d-bb896fe0f501" SourceId="1" SourceUrl="http://localhost:2169/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="035f3576-de90-4186-a8cb-d4bd3137bb90" SourceId="1" SourceUrl="http://localhost:2169/Service.svc?wsdl" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="a3a46be8-b254-4bbf-a43e-c195a3c5b623" SourceId="1" SourceUrl="http://localhost:2169/Service.svc?disco" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="86f6e519-a2da-44b0-a8d6-eb72b4127c1e" SourceId="1" SourceUrl="http://localhost:2169/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="60d71af8-e4d8-4ca7-95b9-09c733836033" SourceId="1" SourceUrl="http://localhost:2169/Service.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

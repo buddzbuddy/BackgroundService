@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
 
@@ -20,6 +21,11 @@ namespace BackgroundService
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
         // TODO: Добавьте здесь операции служб
+        [OperationContract]
+        void StartThreadProcess(string name);
+
+        [OperationContract]
+        string GetValue(string name);
     }
 
 
