@@ -125,8 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheManager.cs" />
-    <Compile Include="Models\StateInfo.cs" />
-    <Compile Include="Processes\AddFamilyMember.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Models\TaskStateInfo.cs" />
+    <Compile Include="Processes\SaveFamilyMember.cs" />
+    <Compile Include="Processes\TestProcess.cs" />
     <Compile Include="Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
@@ -138,6 +140,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Model\Data\DataModel.csdl" />
+    <Content Include="Model\Data\DataModel.msl" />
+    <Content Include="Model\Data\DataModel.ssdl" />
     <None Include="Properties\PublishProfiles\BackgroundService.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

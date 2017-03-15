@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BackgroundService.Models;
+using BackgroundService.Processes;
+using Intersoft.CISSA.BizService.Utils;
+using Intersoft.CISSA.DataAccessLayer.Core;
+using Intersoft.CISSA.DataAccessLayer.Model.Context;
+using Intersoft.CISSA.DataAccessLayer.Model.Workflow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,20 +20,50 @@ namespace BackgroundService
     // ПРИМЕЧАНИЕ. Чтобы запустить клиент проверки WCF для тестирования службы, выберите элементы Service1.svc или Service1.svc.cs в обозревателе решений и начните отладку.
     public class Service : IService
     {
+        static IAppServiceProvider provider;
+        static IAppServiceProviderFactory providerFactory;
+        static IMultiDataContext dataContext;
+        static IDataContextFactory dataContextFactory;
+        
+        public Service()
+        {
+            if (dataContextFactory == null)
+            {
+                dataContextFactory = DataContextFactoryProvider.GetFactory();
+
+                if (dataContext == null)
+                {
+                    dataContext = dataContextFactory.CreateMultiDc("DataContexts");
+                    BaseServiceFactory.CreateBaseServiceFactories();
+                    if (providerFactory == null)
+                    {
+                        providerFactory = AppServiceProviderFactoryProvider.GetFactory();
+                        if (provider == null)
+                        {
+                            provider = providerFactory.Create(dataContext);
+                        }
+                    }
+                }
+            }
+        }
         public string GetData(int value)
         {
             var res = "";
-            var val = CacheManager.Cache["value"];
-            if (val == null)
+            try
             {
-                CacheManager.CacheData("value", value);
-                res = string.Format("[Origin] You entered: {0}", value);
-            }
-            else
-            {
-                res = string.Format("[Cache] You entered: {0}", value);
-            }
+                var processId = new Guid("{BAB5331D-A3F8-4748-B17F-F282B2D623BF}");
+                var userId = new Guid("{2D6819C9-DB76-43FC-8D9F-EC940539B014}");
 
+                var context = new WorkflowContext(new WorkflowContextData(processId, userId), provider);
+                var ui = context.GetUserInfo();
+
+                res = ui.OrganizationName;
+            }
+            catch (Exception e)
+            {
+                while (e.InnerException != null) e = e.InnerException;
+                res = e.Message;
+            }
             return res;
         }
 
@@ -44,21 +80,62 @@ namespace BackgroundService
             return composite;
         }
 
-
-        public async void StartThreadProcess(string name, int threadsCount)
+        public async void StartProcess(string name)
         {
-            for (int i = 0; i < threadsCount; i++)
-                await Task.Factory.StartNew(() =>
-                {
-                    Thread.Sleep(1000);
-                    Caching.Set<int>(name, i);
-                });
+            //Func<Task<object>> valueFactory = () => Task.FromResult((object)(new TestProcess(name)));
+            //await _cache.AddOrGetExisting(name, valueFactory);
+            
+            await Task.Factory.StartNew(() =>
+            {
+                new TestProcess(name);
+            });
         }
 
-        public string GetValue(string name)
+        public string GetTaskState(string name)
         {
-            var val = Caching.Get<int>(name);//CacheManager.Cache[name];
-            return val.ToString();
+            var state = "task of \"" + name + "\" not found";
+            
+            var stateObj = Caching.Get<TaskInfo>(name);
+
+            if (stateObj != null) state = stateObj.CurrentState;
+
+            return state;
+            /*var val = Caching.Get<int>(name);//CacheManager.Cache[name];
+            return val.ToString();*/
+        }
+
+        public async void SaveFamilyMember(Guid userId, Guid Person, Guid? Family_Membership,
+            Guid? Disability, Guid Application_State, Guid? DisabilityType, decimal? Family_MemberKON, Guid? DisablilityGroupe, Guid? employment, string DeadInfoFamMem)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                var cacheKey = string.Format("{0}__{1}", userId, Guid.NewGuid());
+                var taskInfo = Caching.Get<TaskInfo>(cacheKey) ?? new TaskInfo();
+                taskInfo.SetState("шаг 1 из 4. Запуск, подключение(контекст)...");
+                Caching.Set(cacheKey, taskInfo);
+                var context = Caching.Get<WorkflowContext>(userId.ToString());
+                var fromCache = true;
+                if (context == null)
+                {
+                    context = new WorkflowContext(new WorkflowContextData(Guid.Empty, userId), provider);
+                    fromCache = false;
+                }
+                taskInfo.SetState("шаг 2 из 4. Подключен" + (fromCache ? " \"из кэша\"" : "") + ", инициализация и сохранение...");
+                Caching.Set(cacheKey, taskInfo);
+
+                Caching.Set(cacheKey, new SaveFamilyMember(context, cacheKey, new Dictionary<string, object>
+                {
+                    {"Person", Person},
+                    {"Family_Membership", Family_Membership},
+                    {"Disability", Disability},
+                    {"Application_State", Application_State},
+                    {"DisabilityType", DisabilityType},
+                    {"Family_MemberKON", Family_MemberKON},
+                    {"DisablilityGroupe", DisablilityGroupe},
+                    {"employment", employment},
+                    {"DeadInfoFamMem", DeadInfoFamMem}
+                }));
+            });
         }
     }
 }

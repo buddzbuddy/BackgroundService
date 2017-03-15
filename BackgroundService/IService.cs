@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Intersoft.CISSA.DataAccessLayer.Model.Workflow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -22,10 +23,14 @@ namespace BackgroundService
 
         // TODO: Добавьте здесь операции служб
         [OperationContract]
-        void StartThreadProcess(string name, int threadsCount);
+        void StartProcess(string name);
 
         [OperationContract]
-        string GetValue(string name);
+        string GetTaskState(string name);
+
+        [OperationContract]
+        void SaveFamilyMember(Guid userId, Guid Person, Guid? Family_Membership,
+            Guid? Disability, Guid Application_State, Guid? DisabilityType, decimal? Family_MemberKON, Guid? DisablilityGroupe, Guid? employment, string DeadInfoFamMem);
     }
 
 

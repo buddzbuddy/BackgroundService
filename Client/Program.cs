@@ -1,10 +1,6 @@
 ﻿using Client.ServiceReference;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Client
 {
@@ -29,21 +25,21 @@ namespace Client
             Console.WriteLine("press any keys to exit...");
             Console.ReadLine();
         }
-        static int Count = 50;
+        static int Count = 10;
         static void StartCache()
         {
             using (ServiceClient client = new ServiceClient())
             {
                 client.Open();
-
+                
                 Console.WriteLine("please type the names to fill cache...");
 
                 var name = Console.ReadLine();
 
                 for (int i = 1; i <= Count; i++)
                 {
-                    client.StartThreadProcess(name + i, 500);
-                    //Thread.Sleep(1000);
+                    client.StartProcess(name + i);
+                    Thread.Sleep(1000);
                     Console.WriteLine(name + i);
                 }
 
@@ -68,7 +64,7 @@ namespace Client
                     var name = Console.ReadLine();
                     for (int i = 1; i <= Count; i++)
                     {
-                        Console.WriteLine(name + i + ": " + client.GetValue(name + i));
+                        Console.WriteLine(name + i + ": " + client.GetTaskState(name + i));
                     }
                     isShow = exitKey != Console.ReadLine();
                     Console.WriteLine();

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace BackgroundService
@@ -58,7 +60,7 @@ namespace BackgroundService
 
     public static class Caching
     {
-        private static int DurationInMinutes = 30;
+        private static int DurationInMinutes = 100;
         /// <summary>
         /// A generic method for getting and setting objects to the memory cache.
         /// </summary>

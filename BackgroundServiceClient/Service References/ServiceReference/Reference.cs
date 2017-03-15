@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Client.ServiceReference {
+namespace BackgroundServiceClient.ServiceReference {
     using System.Runtime.Serialization;
     using System;
     
@@ -82,22 +82,25 @@ namespace Client.ServiceReference {
         string GetData(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService/GetDataUsingDataContractResponse")]
-        Client.ServiceReference.CompositeType GetDataUsingDataContract(Client.ServiceReference.CompositeType composite);
+        BackgroundServiceClient.ServiceReference.CompositeType GetDataUsingDataContract(BackgroundServiceClient.ServiceReference.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/StartProcess", ReplyAction="http://tempuri.org/IService/StartProcessResponse")]
         void StartProcess(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetTaskState", ReplyAction="http://tempuri.org/IService/GetTaskStateResponse")]
         string GetTaskState(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SaveFamilyMember", ReplyAction="http://tempuri.org/IService/SaveFamilyMemberResponse")]
+        void SaveFamilyMember(System.Guid userId, System.Guid Person, System.Nullable<System.Guid> Family_Membership, System.Nullable<System.Guid> Disability, System.Guid Application_State, System.Nullable<System.Guid> DisabilityType, System.Nullable<decimal> Family_MemberKON, System.Nullable<System.Guid> DisablilityGroupe, System.Nullable<System.Guid> employment, string DeadInfoFamMem);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServiceChannel : Client.ServiceReference.IService, System.ServiceModel.IClientChannel {
+    public interface IServiceChannel : BackgroundServiceClient.ServiceReference.IService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServiceClient : System.ServiceModel.ClientBase<Client.ServiceReference.IService>, Client.ServiceReference.IService {
+    public partial class ServiceClient : System.ServiceModel.ClientBase<BackgroundServiceClient.ServiceReference.IService>, BackgroundServiceClient.ServiceReference.IService {
         
         public ServiceClient() {
         }
@@ -122,7 +125,7 @@ namespace Client.ServiceReference {
             return base.Channel.GetData(value);
         }
         
-        public Client.ServiceReference.CompositeType GetDataUsingDataContract(Client.ServiceReference.CompositeType composite) {
+        public BackgroundServiceClient.ServiceReference.CompositeType GetDataUsingDataContract(BackgroundServiceClient.ServiceReference.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
@@ -132,6 +135,10 @@ namespace Client.ServiceReference {
         
         public string GetTaskState(string name) {
             return base.Channel.GetTaskState(name);
+        }
+        
+        public void SaveFamilyMember(System.Guid userId, System.Guid Person, System.Nullable<System.Guid> Family_Membership, System.Nullable<System.Guid> Disability, System.Guid Application_State, System.Nullable<System.Guid> DisabilityType, System.Nullable<decimal> Family_MemberKON, System.Nullable<System.Guid> DisablilityGroupe, System.Nullable<System.Guid> employment, string DeadInfoFamMem) {
+            base.Channel.SaveFamilyMember(userId, Person, Family_Membership, Disability, Application_State, DisabilityType, Family_MemberKON, DisablilityGroupe, employment, DeadInfoFamMem);
         }
     }
 }
