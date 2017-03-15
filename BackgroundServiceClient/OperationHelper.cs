@@ -10,7 +10,8 @@ namespace BackgroundServiceClient
     public static class OperationHelper
     {
         public static void SaveFamilyMember(Guid userId, Guid Person, Guid? Family_Membership,
-            Guid? Disability, Guid Application_State, Guid? DisabilityType, decimal? Family_MemberKON, Guid? DisablilityGroupe, Guid? employment, string DeadInfoFamMem, out string errorMessage)
+            Guid? Disability, Guid Application_State, Guid? DisabilityType, decimal? Family_MemberKON,
+            Guid? DisablilityGroupe, Guid? employment, string DeadInfoFamMem, out string errorMessage)
         {
             errorMessage = "";
             string processName = "название не указано";
@@ -37,5 +38,91 @@ namespace BackgroundServiceClient
                 }
             }
         }
+        public static void StartProcess(string name, out string errorMessage)
+        {
+            errorMessage = "";
+            string processName = "название не указано";
+            using (var client = new ServiceClient())
+            {
+                try
+                {
+                    client.Open();
+
+                    processName = "Тестовый процесс (StartProcess)";
+                    client.StartProcess(name);
+                }
+                catch (Exception e)
+                {
+                    client.Abort();
+
+                    while (e.InnerException != null) e = e.InnerException;
+                    errorMessage = "Ошибка при вызове асинхронного процесса \"" + processName + "\". Текст ошибки: " + e.Message + "; stacktrace: " + e.StackTrace;
+                }
+                finally
+                {
+                    if (client.State != System.ServiceModel.CommunicationState.Closed)
+                        client.Close();
+                }
+            }
+        }
+
+        public static string GetTaskState(string name, out string errorMessage)
+        {
+            errorMessage = "";
+            string processName = "название не указано";
+            using (var client = new ServiceClient())
+            {
+                try
+                {
+                    client.Open();
+
+                    processName = "Тестовый процесс (GetTaskState)";
+                    return client.GetTaskState(name);
+                }
+                catch (Exception e)
+                {
+                    client.Abort();
+
+                    while (e.InnerException != null) e = e.InnerException;
+                    errorMessage = "Ошибка при вызове асинхронного процесса \"" + processName + "\". Текст ошибки: " + e.Message + "; stacktrace: " + e.StackTrace;
+                }
+                finally
+                {
+                    if (client.State != System.ServiceModel.CommunicationState.Closed)
+                        client.Close();
+                }
+                return default(string);
+            }
+        }
+
+
+        //public static TYPE NAME (, out string errorMessage)
+        //{
+        //    errorMessage = "";
+        //    string processName = "название не указано";
+        //    using (var client = new ServiceClient())
+        //    {
+        //        try
+        //        {
+        //            client.Open();
+
+        //            processName = "---";
+        //            //client.
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            client.Abort();
+
+        //            while (e.InnerException != null) e = e.InnerException;
+        //            errorMessage = "Ошибка при вызове асинхронного процесса \"" + processName + "\". Текст ошибки: " + e.Message + "; stacktrace: " + e.StackTrace;
+        //        }
+        //        finally
+        //        {
+        //            if (client.State != System.ServiceModel.CommunicationState.Closed)
+        //                client.Close();
+        //        }
+        //    }
+        //    //return default(TYPE);
+        //}
     }
 }
